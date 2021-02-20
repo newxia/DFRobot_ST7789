@@ -28,9 +28,9 @@ To use this library, first download the library file, paste it into the \Arduino
 ```C++
   /**
    * @brief ST7789初始化
-   * @param dc DC引脚号 1：发送数据; 0：发送命令
-   * @param rst 复位引脚号
-   * @param cs 片选引脚号 1:取消选中无法通信; 0:选中可以通信
+   * @param dc  DC引脚号   1：发送数据; 0：发送命令
+   * @param rst 复位引脚号 复位引脚先拉低再拉高完成一个上升沿即可成功复位，即先置0再置1
+   * @param cs  片选引脚号 1:取消选中无法通信; 0:选中可以通信
    */
   void st7789_init(int8_t dc, int8_t rst, int8_t cs);
   
