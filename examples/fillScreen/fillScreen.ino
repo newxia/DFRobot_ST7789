@@ -28,7 +28,7 @@ DFRobot_ST7789 st7789;
 
 void setup(void) {
   Serial.begin(115200);
-  st7789.st7789_init(TFT_DC, TFT_RST, TFT_CS);
+  st7789.st7789Init(TFT_DC, TFT_RST, TFT_CS);
   st7789.fillScreen(RGB_565_RED);//用XX色填充屏幕
 }
 

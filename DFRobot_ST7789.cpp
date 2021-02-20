@@ -47,7 +47,7 @@ DFRobot_ST7789::DFRobot_ST7789()
 {
 }
 
-void DFRobot_ST7789::st7789_init(int8_t dc, int8_t rst, int8_t cs)
+void DFRobot_ST7789::st7789Init(int8_t dc, int8_t rst, int8_t cs)
 {
   _cs   = cs;
   _dc   = dc;
@@ -61,7 +61,7 @@ void DFRobot_ST7789::st7789_init(int8_t dc, int8_t rst, int8_t cs)
   commonInit();//引脚设定，SPI初始设定
   displayInit(cmd_240x240);//初始化屏幕，调用flash里的默认屏幕设置数据
   
-  writedata(ST7789_MADCTL_RGB);//0x00，表示颜色模式读取选定的为RGB
+  writeData(ST7789_MADCTL_RGB);//0x00，表示颜色模式读取选定的为RGB
   
   _xstart = _colstart;
   _ystart = _rowstart;
@@ -101,19 +101,19 @@ void  DFRobot_ST7789::fillRect(int16_t x, int16_t y, int16_t w, int16_t h,uint16
 void  DFRobot_ST7789::setAddrWindow(uint16_t x0, uint16_t y0, uint16_t x1,
                     uint16_t y1) {
 
-  writecommand(ST7789_CASET);  //写入命令，设置列地址
-  writedata(x0 >> 8);          //0x00
-  writedata(x0 & 0xFF);        //与后还是X0
-  writedata(x1 >> 8);          //0x00
-  writedata(x1 & 0xFF);        //与后还是X1
+  writeCommand(ST7789_CASET);  //写入命令，设置列地址
+  writeData(x0 >> 8);          //0x00
+  writeData(x0 & 0xFF);        //与后还是X0
+  writeData(x1 >> 8);          //0x00
+  writeData(x1 & 0xFF);        //与后还是X1
                                
-  writecommand(ST7789_RASET);  //写入命令，设置行地址  
-  writedata(y0 >> 8);          //0x00
-  writedata(y0 & 0xFF);        //与后还是Y0
-  writedata(y1 >> 8);          //0x00 
-  writedata(y1 & 0xFF);        //与后还是Y1 
+  writeCommand(ST7789_RASET);  //写入命令，设置行地址  
+  writeData(y0 >> 8);          //0x00
+  writeData(y0 & 0xFF);        //与后还是Y0
+  writeData(y1 >> 8);          //0x00 
+  writeData(y1 & 0xFF);        //与后还是Y1 
 
-  writecommand(ST7789_RAMWR);  //执行写入RAM的命令
+  writeCommand(ST7789_RAMWR);  //执行写入RAM的命令
 }
 
 void  DFRobot_ST7789::commonInit(void) {
@@ -154,14 +154,14 @@ void  DFRobot_ST7789::displayInit(const uint8_t *addr) {
   numCommands = pgm_read_byte(addr++);   
   //numCommands=9
   while (numCommands--) {
-    writecommand(pgm_read_byte(addr++)); //读的是cmd_240x240[1]=ST7789_SWRESET这种命令
+    writeCommand(pgm_read_byte(addr++)); //读的是cmd_240x240[1]=ST7789_SWRESET这种命令
     numArgs  = pgm_read_byte(addr++);    //读的是cmd_240x240[2]=ST_CMD_DELAY，命令后一项
     ms       = numArgs & ST_CMD_DELAY;   //判断numArgs里是否有ST_CMD_DELAY延迟，如果ms=0,则没有不需要延迟，如果ms=ST_CMD_DELAY，则需要延迟
     numArgs &= ~ST_CMD_DELAY;            //读的是参数个数 1 + ST_CMD_DELAY与~ST_CMD_DELAY得到参数个数：1
     
     //有几个参就读几个参
     while (numArgs--) {                  
-      writedata(pgm_read_byte(addr++)); 
+      writeData(pgm_read_byte(addr++)); 
     }
 
     //ms为真，则需要延迟；为假，跳过即可
@@ -173,7 +173,7 @@ void  DFRobot_ST7789::displayInit(const uint8_t *addr) {
   }
 }
 
-void  DFRobot_ST7789::writedata(uint8_t c) {            
+void  DFRobot_ST7789::writeData(uint8_t c) {            
   digitalWrite(_dc, HIGH);               //DC(1)写数据
   digitalWrite(_cs, LOW);                //片选拉低，选中状态
   //在使用SPI.transfer()或断言芯片选择引脚之前，这个函数用于获得对SPI总线的独占访问，并配置正确的设置。
@@ -183,7 +183,7 @@ void  DFRobot_ST7789::writedata(uint8_t c) {
   SPI.endTransaction();                  //结束通信
 }
 
-void  DFRobot_ST7789::writecommand(uint8_t c) {          
+void  DFRobot_ST7789::writeCommand(uint8_t c) {          
   digitalWrite(_dc, LOW);                //DC(0)写命令
   digitalWrite(_cs, LOW);                //片选拉低，选中状态
   //在使用SPI.transfer()或断言芯片选择引脚之前，这个函数用于获得对SPI总线的独占访问，并配置正确的设置。

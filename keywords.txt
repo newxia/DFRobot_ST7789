@@ -12,11 +12,11 @@ DFRobot_ST7789	KEYWORD1
 # Methods and Functions (KEYWORD2)
 #######################################
 
-st7789_init	KEYWORD2
+st7789Init	KEYWORD2
 fillScreen	KEYWORD2
 commonInit	KEYWORD2
-writecommand	KEYWORD2
-writedata	KEYWORD2
+writeCommand	KEYWORD2
+writeData	KEYWORD2
 displayInit	KEYWORD2
 setAddrWindow	KEYWORD2
 fillRect	KEYWORD2
