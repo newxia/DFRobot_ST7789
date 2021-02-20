@@ -29,57 +29,57 @@
 
 class DFRobot_ST7789{
 public:
-// 定义三个引脚的连线PIN脚
-// TFT_DC 高，发送数据；低，发送命令
-// TFT_CS 片选，拉低则选中，可以通信；拉高不能通信
-// TFT_RST 复位引脚
-#define TFT_DC    2
-#define TFT_CS    3
-#define TFT_RST   4
-
-// 定义屏幕的宽和高（尺寸）
-#define ST7789_TFT_WIDTH   240
-#define ST7789_TFT_HEIGHT  240
-
-// 定义屏幕的起始点坐标
-#define ST7789_240x240_XSTART 0 //起始点横坐标
-#define ST7789_240x240_YSTART 0 //起始点纵坐标
-
-#define ST_CMD_DELAY   0x80  //
-
-// 指令的寄存器定义，参考芯片手册第9章
-#define ST7789_NOP     0x00  // empty command 空指令
-#define ST7789_SWRESET 0x01  // Software Reset 软复位 
-#define ST7789_RDDID   0x04  // Read Display ID 读取显示id 
-#define ST7789_RDDST   0x09  // Read Display Status 读取显示状态 
-
-#define ST7789_SLPIN   0x10  // Sleep in 睡眠模式 
-#define ST7789_SLPOUT  0x11  // Sleep Out 退出睡眠模式
-#define ST7789_PTLON   0x12  // Partial Display Mode On 部分显示模式开启
-#define ST7789_NORON   0x13  // Normal Display Mode On 正常显示模式开启
-
-#define ST7789_INVOFF  0x20  // Display Inversion 显示反转关闭
-#define ST7789_INVON   0x21  // Display Inversion 显示反转开启
-#define ST7789_DISPOFF 0x28  // Display 显示关闭
-#define ST7789_DISPON  0x29  // Display 显示开启
-#define ST7789_CASET   0x2A  // Column Address Set 设置列地址 
-#define ST7789_RASET   0x2B  // Row Address Set 设置行地址 
-#define ST7789_RAMWR   0x2C  // RAM Write 内存写入 
-#define ST7789_RAMRD   0x2E  // RAM Read 内存读取（此例程未使用）
-
-#define ST7789_PTLAR   0x30  // Partial Area 局部区域 
-#define ST7789_COLMOD  0x3A  // Set color mode 颜色模式
-
-// Memory Data Access Control内存数据访问控制，通过该寄存器可以设定图像的刷新方式
-#define ST7789_MADCTL  0x36     
-#define ST7789_MADCTL_MY  0x80  //D7:1000-0000 页面地址顺序：底到顶,相应位上为1
-#define ST7789_MADCTL_MX  0x40  //D6:0100-0000 右边到左边,相应位上为1
-#define ST7789_MADCTL_MV  0x20  //D5:0010-0000 翻转模式,相应位上为1
-#define ST7789_MADCTL_ML  0x10  //D4:0001-0000 线地址顺序：底到顶,相应位上为1
-#define ST7789_MADCTL_RGB 0x00  //D3:0000-0000 选定的RGB模式
-
-
-#define RGB_565_RED 0xf800  //红色
+  // 定义三个引脚的连线PIN脚
+  // TFT_DC 高，发送数据；低，发送命令
+  // TFT_CS 片选，拉低则选中，可以通信；拉高不能通信
+  // TFT_RST 复位引脚
+  #define TFT_DC    2
+  #define TFT_CS    3
+  #define TFT_RST   4
+  
+  // 定义屏幕的宽和高（尺寸）
+  #define ST7789_TFT_WIDTH   240
+  #define ST7789_TFT_HEIGHT  240
+  
+  // 定义屏幕的起始点坐标
+  #define ST7789_240x240_XSTART 0 //起始点横坐标
+  #define ST7789_240x240_YSTART 0 //起始点纵坐标
+  
+  #define ST_CMD_DELAY   0x80  //
+  
+  // 指令的寄存器定义，参考芯片手册第9章
+  #define ST7789_NOP     0x00  // empty command 空指令
+  #define ST7789_SWRESET 0x01  // Software Reset 软复位 
+  #define ST7789_RDDID   0x04  // Read Display ID 读取显示id 
+  #define ST7789_RDDST   0x09  // Read Display Status 读取显示状态 
+  
+  #define ST7789_SLPIN   0x10  // Sleep in 睡眠模式 
+  #define ST7789_SLPOUT  0x11  // Sleep Out 退出睡眠模式
+  #define ST7789_PTLON   0x12  // Partial Display Mode On 部分显示模式开启
+  #define ST7789_NORON   0x13  // Normal Display Mode On 正常显示模式开启
+  
+  #define ST7789_INVOFF  0x20  // Display Inversion 显示反转关闭
+  #define ST7789_INVON   0x21  // Display Inversion 显示反转开启
+  #define ST7789_DISPOFF 0x28  // Display 显示关闭
+  #define ST7789_DISPON  0x29  // Display 显示开启
+  #define ST7789_CASET   0x2A  // Column Address Set 设置列地址 
+  #define ST7789_RASET   0x2B  // Row Address Set 设置行地址 
+  #define ST7789_RAMWR   0x2C  // RAM Write 内存写入 
+  #define ST7789_RAMRD   0x2E  // RAM Read 内存读取（此例程未使用）
+  
+  #define ST7789_PTLAR   0x30  // Partial Area 局部区域 
+  #define ST7789_COLMOD  0x3A  // Set color mode 颜色模式
+  
+  // Memory Data Access Control内存数据访问控制，通过该寄存器可以设定图像的刷新方式
+  #define ST7789_MADCTL  0x36     
+  #define ST7789_MADCTL_MY  0x80  //D7:1000-0000 页面地址顺序：底到顶,相应位上为1
+  #define ST7789_MADCTL_MX  0x40  //D6:0100-0000 右边到左边,相应位上为1
+  #define ST7789_MADCTL_MV  0x20  //D5:0010-0000 翻转模式,相应位上为1
+  #define ST7789_MADCTL_ML  0x10  //D4:0001-0000 线地址顺序：底到顶,相应位上为1
+  #define ST7789_MADCTL_RGB 0x00  //D3:0000-0000 选定的RGB模式
+  
+  
+  #define RGB_565_RED 0xf800  //红色
 
 public:
   /**
