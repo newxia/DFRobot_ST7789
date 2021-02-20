@@ -1,4 +1,4 @@
-# DFRobot_Sensor
+# DFRobot_ST7789
 DFRobot_ST7789是一个LCD屏幕驱动库。
 
 ## 产品链接（链接到英文商城）
